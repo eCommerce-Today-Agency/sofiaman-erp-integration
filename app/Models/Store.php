@@ -46,7 +46,7 @@ class Store extends Model
 		
 		// 2. Get all erp products altogether.
         $erp_products = ERPConnectorApi::getStocPret($token, '', '');
-		_log(print_r($erp_products,1),'all_products_');
+		
         $total_products = 0;
         do{
 
