@@ -188,6 +188,7 @@ return [
 
 
     'erp_username' =>  env('ERP_API_USERNAME','office@sofiaman.ro'),
-    'erp_password' =>  env('ERP_API_PASSWORD','Ee4nbgUDr?;N')
+    'erp_password' =>  env('ERP_API_PASSWORD','Ee4nbgUDr?;N'),
+    'erp_mode'     =>  env('ERP_API_MODE','test'),
 
 ];

@@ -17,7 +17,13 @@ class ERPConnectorApi {
         $password = config('app.erp_password');
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($curl, CURLOPT_URL, self::APITEST . '/Token');
+
+        if( 'live' == config('app.erp_mode')){
+            curl_setopt($curl, CURLOPT_URL, self::APIPROD . '/Token');
+        }else{
+            curl_setopt($curl, CURLOPT_URL, self::APITEST . '/Token');
+        }
+
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(array('username' => $username, 'password' => $password, 'grant_type' => 'password')));
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
@@ -33,7 +39,11 @@ class ERPConnectorApi {
             $postRequest = array('CodProdus' => $codProdus, 'Gestiune' => $gestiune);
             $curl = curl_init();
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-            curl_setopt($curl, CURLOPT_URL, self::APITEST . '/api/Data/GetStocPret');
+            if( 'live' == config('app.erp_mode')){
+                curl_setopt($curl, CURLOPT_URL, self::APIPROD . '/api/Data/GetStocPret');
+            }else{
+                curl_setopt($curl, CURLOPT_URL, self::APITEST . '/api/Data/GetStocPret');
+            }
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
