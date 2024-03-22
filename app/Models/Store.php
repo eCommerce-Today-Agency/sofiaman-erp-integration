@@ -113,6 +113,7 @@ class Store extends Model
                                                 node {
                                                     id
                                                     price
+                                                    compareAtPrice
                                                     inventoryQuantity
                                                     barcode
                                                         product {
@@ -158,6 +159,11 @@ class Store extends Model
      */
     function update_shopify_product_price($variant, $erp_product){
 
+        // Skip price sync for sale products. 
+		if( !empty($variant['compareAtPrice'] ) && ($variant['compareAtPrice'] > $variant['price']) ){
+            _log( $variant, 'comparePrice_');
+            return ;
+        }
         $pid = $variant['id'];
         $query = <<<QUERY
         mutation {
